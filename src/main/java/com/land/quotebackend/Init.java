@@ -14,6 +14,6 @@ public class Init implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        quoteRepository.save(new Quote(null,"hello quote"));
+        quoteRepository.save(new Quote(null,"hello quotess"));
     }
 }
