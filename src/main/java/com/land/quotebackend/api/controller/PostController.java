@@ -1,5 +1,7 @@
 package com.land.quotebackend.api.controller;
 
+import com.land.quotebackend.dto.request.PostCreateRequest;
+import com.land.quotebackend.dto.request.PostUpdateRequest;
 import com.land.quotebackend.dto.response.PostGetAllResponse;
 import com.land.quotebackend.dto.response.PostGetByIdResponse;
 import com.land.quotebackend.entity.Post;
@@ -30,25 +32,27 @@ public class PostController {
     }
 
     @GetMapping
-    public List<PostGetAllResponse> getAllPosts(@RequestParam int pageIndex, @RequestParam int count){
+    public List<PostGetAllResponse> getAllPosts(@RequestParam int pageIndex, @RequestParam int count) {
 
-        return PostMapper.INIT.postsToGetAllResponse(postService.getAllPosts(pageIndex,count));
+        return PostMapper.INIT.postsToGetAllResponse(postService.getAllPosts(pageIndex, count));
     }
 
     @GetMapping(value = "{id}")
-    public PostGetByIdResponse getPostById(@PathVariable String id){
+    public PostGetByIdResponse getPostById(@PathVariable String id) {
         return PostMapper.INIT.postToGetByIdResponse(postService.getPostById(id));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createPost(@RequestBody Post post){
-         postService.createPost(post);
+    public void createPost(@RequestBody PostCreateRequest request) {
+        Post post = PostMapper.INIT.createPostRequestToPost(request);
+        postService.createPost(post);
     }
 
     @PutMapping
-    public void updatePost(@RequestBody Post post){
-         postService.updatePost(post);
+    public void updatePost(@RequestBody PostUpdateRequest request) {
+        Post post = PostMapper.INIT.updatePostRequestToPost(request);
+        postService.updatePost(post);
     }
 
     @DeleteMapping(value = "{id}")

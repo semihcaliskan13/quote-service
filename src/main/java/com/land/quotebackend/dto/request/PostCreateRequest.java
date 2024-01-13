@@ -1,6 +1,6 @@
 package com.land.quotebackend.dto.request;
 
-public record CreatePostRequest(
+public record PostCreateRequest(
         String title,
         String content
 ) {
