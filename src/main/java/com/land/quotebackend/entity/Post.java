@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,7 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private String title;
+    @Size(min = 1,max = 600, message = "İçerik 1 ile 600 karakter arasında olmalıdır!")
     private String content;
 
     @CreationTimestamp
