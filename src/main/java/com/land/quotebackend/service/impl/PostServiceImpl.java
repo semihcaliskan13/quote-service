@@ -1,6 +1,7 @@
 package com.land.quotebackend.service.impl;
 
 import com.land.quotebackend.entity.Post;
+import com.land.quotebackend.excepiton.QuoteNotFoundException;
 import com.land.quotebackend.repository.PostRepository;
 import com.land.quotebackend.service.PostService;
 import jakarta.persistence.EntityNotFoundException;
@@ -28,7 +29,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post getPostById(String id) {
-        return postRepository.findById(id).orElseThrow();
+        return postRepository.findById(id).orElseThrow(() ->new QuoteNotFoundException(id));
     }
 
     @Override
@@ -41,7 +42,7 @@ public class PostServiceImpl implements PostService {
         if (postRepository.existsById(post.getId())){
             return postRepository.save(post);
         }
-        throw new EntityNotFoundException();
+        throw new QuoteNotFoundException();
     }
 
     @Override
