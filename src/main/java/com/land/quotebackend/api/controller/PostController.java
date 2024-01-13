@@ -1,6 +1,9 @@
 package com.land.quotebackend.api.controller;
 
+import com.land.quotebackend.dto.response.PostGetAllResponse;
+import com.land.quotebackend.dto.response.PostGetByIdResponse;
 import com.land.quotebackend.entity.Post;
+import com.land.quotebackend.mapper.PostMapper;
 import com.land.quotebackend.service.PostService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,24 +30,25 @@ public class PostController {
     }
 
     @GetMapping
-    public List<Post> getAllPosts(@RequestParam int pageIndex, @RequestParam int count){
-        return postService.getAllPosts(pageIndex,count);
+    public List<PostGetAllResponse> getAllPosts(@RequestParam int pageIndex, @RequestParam int count){
+
+        return PostMapper.INIT.postsToGetAllResponse(postService.getAllPosts(pageIndex,count));
     }
 
     @GetMapping(value = "{id}")
-    public Post getPostById(@PathVariable String id){
-        return postService.getPostById(id);
+    public PostGetByIdResponse getPostById(@PathVariable String id){
+        return PostMapper.INIT.postToGetByIdResponse(postService.getPostById(id));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Post createPost(@RequestBody Post post){
-        return postService.createPost(post);
+    public void createPost(@RequestBody Post post){
+         postService.createPost(post);
     }
 
     @PutMapping
-    public Post updatePost(@RequestBody Post post){
-        return postService.updatePost(post);
+    public void updatePost(@RequestBody Post post){
+         postService.updatePost(post);
     }
 
     @DeleteMapping(value = "{id}")
