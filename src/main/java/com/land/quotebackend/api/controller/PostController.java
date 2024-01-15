@@ -7,7 +7,9 @@ import com.land.quotebackend.dto.response.PostGetByIdResponse;
 import com.land.quotebackend.entity.Post;
 import com.land.quotebackend.mapper.PostMapper;
 import com.land.quotebackend.service.PostService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,7 +46,7 @@ public class PostController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createPost(@RequestBody PostCreateRequest request) {
+    public void createPost(@RequestBody @Valid PostCreateRequest request) {
         Post post = PostMapper.INIT.createPostRequestToPost(request);
         postService.createPost(post);
     }
