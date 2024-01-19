@@ -1,7 +1,7 @@
 package com.land.quotebackend.api.controller;
 
-import com.land.quotebackend.dto.request.AuthLoginRequest;
-import com.land.quotebackend.dto.response.AuthLoginResponse;
+import com.land.quotebackend.dto.request.auth.AuthLoginRequest;
+import com.land.quotebackend.dto.response.auth.AuthLoginResponse;
 import com.land.quotebackend.service.AuthService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -1,7 +1,7 @@
 package com.land.quotebackend.service;
 
-import com.land.quotebackend.dto.request.AuthLoginRequest;
-import com.land.quotebackend.dto.response.AuthLoginResponse;
+import com.land.quotebackend.dto.request.auth.AuthLoginRequest;
+import com.land.quotebackend.dto.response.auth.AuthLoginResponse;
 
 public interface AuthService {
 

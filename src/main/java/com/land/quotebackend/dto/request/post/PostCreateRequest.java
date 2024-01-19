@@ -1,4 +1,4 @@
-package com.land.quotebackend.dto.request;
+package com.land.quotebackend.dto.request.post;
 
 import jakarta.validation.constraints.Size;
 

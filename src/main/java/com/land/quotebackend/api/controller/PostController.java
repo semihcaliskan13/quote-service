@@ -1,15 +1,14 @@
 package com.land.quotebackend.api.controller;
 
-import com.land.quotebackend.dto.request.PostCreateRequest;
-import com.land.quotebackend.dto.request.PostUpdateRequest;
-import com.land.quotebackend.dto.response.PostGetAllResponse;
-import com.land.quotebackend.dto.response.PostGetByIdResponse;
+import com.land.quotebackend.dto.request.post.PostCreateRequest;
+import com.land.quotebackend.dto.request.post.PostUpdateRequest;
+import com.land.quotebackend.dto.response.post.PostGetAllResponse;
+import com.land.quotebackend.dto.response.post.PostGetByIdResponse;
 import com.land.quotebackend.entity.Post;
 import com.land.quotebackend.mapper.PostMapper;
 import com.land.quotebackend.service.PostService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

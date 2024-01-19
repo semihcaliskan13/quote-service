@@ -1,8 +1,11 @@
-package com.land.quotebackend.dto.response;
+package com.land.quotebackend.dto.request.post;
+
+import jakarta.validation.constraints.NotEmpty;
 
 import java.time.Instant;
 
-public record PostGetByIdResponse(
+public record PostUpdateRequest(
+        @NotEmpty
         String id,
         String title,
         String content,

@@ -2,8 +2,8 @@ package com.land.quotebackend.service.impl;
 
 import com.land.quotebackend.auth.CustomUserDetails;
 import com.land.quotebackend.dto.UserCredential;
-import com.land.quotebackend.dto.request.AuthLoginRequest;
-import com.land.quotebackend.dto.response.AuthLoginResponse;
+import com.land.quotebackend.dto.request.auth.AuthLoginRequest;
+import com.land.quotebackend.dto.response.auth.AuthLoginResponse;
 import com.land.quotebackend.entity.User;
 import com.land.quotebackend.service.AuthService;
 import com.land.quotebackend.service.UserService;
@@ -11,8 +11,6 @@ import com.land.quotebackend.util.JwtUtil;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
-
-import java.lang.reflect.InvocationTargetException;
 
 @Service
 public class AuthServiceImpl implements AuthService {

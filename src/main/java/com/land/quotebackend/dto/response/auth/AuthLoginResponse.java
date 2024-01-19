@@ -1,4 +1,4 @@
-package com.land.quotebackend.dto.response;
+package com.land.quotebackend.dto.response.auth;
 
 import lombok.Builder;
 

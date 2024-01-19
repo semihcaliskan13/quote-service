@@ -1,9 +1,9 @@
 package com.land.quotebackend.mapper;
 
-import com.land.quotebackend.dto.request.PostCreateRequest;
-import com.land.quotebackend.dto.request.PostUpdateRequest;
-import com.land.quotebackend.dto.response.PostGetAllResponse;
-import com.land.quotebackend.dto.response.PostGetByIdResponse;
+import com.land.quotebackend.dto.request.post.PostCreateRequest;
+import com.land.quotebackend.dto.request.post.PostUpdateRequest;
+import com.land.quotebackend.dto.response.post.PostGetAllResponse;
+import com.land.quotebackend.dto.response.post.PostGetByIdResponse;
 import com.land.quotebackend.entity.Post;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
