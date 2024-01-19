@@ -4,6 +4,8 @@ import com.land.quotebackend.entity.User;
 import com.land.quotebackend.excepiton.UserNotFoundException;
 import com.land.quotebackend.repository.UserRepository;
 import com.land.quotebackend.service.UserService;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +23,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<User> getAllUsers(int index, int count) {
+        Pageable pageable = PageRequest.of(index, count);
+        return userRepository.findAll(pageable).getContent();
     }
 
     @Override
