@@ -1,6 +1,7 @@
 package com.land.quotebackend.service.impl;
 
 import com.land.quotebackend.entity.Role;
+import com.land.quotebackend.entity.User;
 import com.land.quotebackend.excepiton.RoleNotFoundException;
 import com.land.quotebackend.repository.RoleRepository;
 import com.land.quotebackend.service.RoleService;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class RoleServiceImpl extends RoleService {
+public class RoleServiceImpl implements RoleService {
 
     private final RoleRepository _roleRepository;
 
@@ -21,6 +22,11 @@ public class RoleServiceImpl extends RoleService {
     @Override
     public List<Role> getAllRoles(int index, int count) {
         return _roleRepository.findAll(PageRequest.of(index, count)).getContent();
+    }
+
+    @Override
+    public List<Role> getUserRoles(List<User> users, int index, int count) {
+        return _roleRepository.findAllByUsersIn(users, PageRequest.of(index,count)).getContent();
     }
 
     @Override
