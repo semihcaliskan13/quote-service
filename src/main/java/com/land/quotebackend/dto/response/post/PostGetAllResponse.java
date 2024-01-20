@@ -1,5 +1,8 @@
 package com.land.quotebackend.dto.response.post;
 
+import com.land.quotebackend.dto.response.userprofile.UserProfileGetByIdResponse;
+import com.land.quotebackend.entity.UserProfile;
+
 import java.time.Instant;
 
 public record PostGetAllResponse(
@@ -7,6 +10,7 @@ public record PostGetAllResponse(
         String title,
         String content,
         Instant createdAt,
-        Instant updatedAt
+        Instant updatedAt,
+        UserProfileGetByIdResponse userProfile
 ) {
 }

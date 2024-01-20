@@ -1,5 +1,7 @@
 package com.land.quotebackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -32,9 +34,10 @@ public class UserProfile {
     private String imageUrl;
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "userProfile", cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<Post> posts;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @MapsId
     @JoinColumn(name = "user_id")
     private User user;
