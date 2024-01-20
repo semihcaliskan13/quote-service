@@ -34,10 +34,10 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     @Override
     public void updateUserProfile(UserProfile userProfile) {
-        if (_userProfileRepository.existsById(userProfile.getId())) {
+        if (_userProfileRepository.existsById(userProfile.getUserId())) {
             _userProfileRepository.save(userProfile);
         }
-        throw new UserProfileNotFoundException("User profile not updated with id: " + userProfile.getId());
+        throw new UserProfileNotFoundException("User profile not updated with id: " + userProfile.getUserId());
     }
 
     @Override

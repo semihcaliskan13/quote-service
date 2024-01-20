@@ -1,6 +1,6 @@
 package com.land.quotebackend.dto.response.userprofile;
 
-public record UserProfileGetAllResponse(
+public record UserProfileGetByIdResponse(
         String userId,
         String description,
         String imageUrl

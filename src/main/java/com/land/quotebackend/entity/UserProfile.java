@@ -27,7 +27,7 @@ import java.util.List;
 public class UserProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    private String userId;
     private String description;
     private String imageUrl;
 
