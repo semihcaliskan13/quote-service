@@ -14,3 +14,8 @@ spring.jpa.properties.hibernate.temp.use_jdbc_metadata_defaults=false
 spring.security.jwt.secret = jMddGBXzHbPCxC99Ed6Jaim8md3wxn+Fl2J5MXPS0s39eCNq5HG+J/U1QECA8hIF
 spring.security.jwt.expiration = 360000
 
+#amazon-s3-settings
+cloud.aws.credentials.access-key= <<your_aws_access_key>>
+cloud.aws.credentials.secret-key= <<your_aws_secret_key>>
+cloud.aws.stack.auto=false
+cloud.aws.region.static=<<your_aws_region>>
