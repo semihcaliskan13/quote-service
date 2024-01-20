@@ -4,8 +4,11 @@ import com.land.quotebackend.dto.request.role.RoleCreateRequest;
 import com.land.quotebackend.dto.request.role.RoleUpdateRequest;
 import com.land.quotebackend.dto.response.role.RoleGetAllResponse;
 import com.land.quotebackend.dto.response.role.RoleGetByIdResponse;
+import com.land.quotebackend.dto.response.user.UserGetAllResponse;
 import com.land.quotebackend.mapper.RoleMapper;
+import com.land.quotebackend.mapper.UserMapper;
 import com.land.quotebackend.service.RoleService;
+import com.land.quotebackend.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,9 +28,11 @@ import java.util.List;
 public class RoleController {
 
     private final RoleService _roleService;
+    private final UserService _userService;
 
-    public RoleController(RoleService roleService) {
+    public RoleController(RoleService roleService, UserService userService) {
         _roleService = roleService;
+        _userService = userService;
     }
 
     @GetMapping
@@ -38,6 +43,11 @@ public class RoleController {
     @GetMapping(value = "{id}")
     public RoleGetByIdResponse getRoleById(@PathVariable String id) {
         return RoleMapper.INIT.roleToGetByIdResponse(_roleService.getRoleById(id));
+    }
+
+    @GetMapping(value = "{id}/users")
+    public List<UserGetAllResponse> getUsersByRole(@PathVariable String id){
+        return UserMapper.INIT.userToGetAllResponse(_userService.getAllUsersByRole(List.of(_roleService.getRoleById(id))));
     }
 
     @PostMapping

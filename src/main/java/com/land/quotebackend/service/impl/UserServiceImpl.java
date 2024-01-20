@@ -1,5 +1,6 @@
 package com.land.quotebackend.service.impl;
 
+import com.land.quotebackend.entity.Role;
 import com.land.quotebackend.entity.User;
 import com.land.quotebackend.excepiton.UserNotFoundException;
 import com.land.quotebackend.repository.UserRepository;
@@ -8,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -29,13 +31,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> getAllUsersByRole(List<Role> role) {
+        return userRepository.findUsersByRolesIn(role);
+    }
+
+    @Override
     public User getUserById(String id) {
         return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found with id: "+id));
     }
 
     @Override
+    @Transactional
     public User getUserByUsername(String username) {
-        return userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException("User not found with username: "+username));
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException("User not found with username: "+username));
+        user.getRoles().size();
+        return user;
     }
 
     @Override
