@@ -36,6 +36,7 @@ public class UserProfileServiceImpl implements UserProfileService {
     public void updateUserProfile(UserProfile userProfile) {
         if (_userProfileRepository.existsById(userProfile.getUserId())) {
             _userProfileRepository.save(userProfile);
+            return;
         }
         throw new UserProfileNotFoundException("User profile not updated with id: " + userProfile.getUserId());
     }
