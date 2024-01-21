@@ -1,9 +1,12 @@
 package com.land.quotebackend.api;
 
+import com.amazonaws.services.acmpca.model.AWSACMPCAException;
+import com.land.quotebackend.excepiton.AwsS3BucketNotExist;
 import com.land.quotebackend.excepiton.ErrorMessage;
 import com.land.quotebackend.excepiton.QuoteNotFoundException;
 import com.land.quotebackend.excepiton.RoleNotFoundException;
 import com.land.quotebackend.excepiton.UserNotFoundException;
+import com.land.quotebackend.excepiton.UserProfileNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpHeaders;
@@ -49,6 +52,18 @@ public class GlobalExceptionHandler {
         List<String> errors = ex.getBindingResult().getFieldErrors()
                 .stream().map(FieldError::getDefaultMessage).collect(Collectors.toList());
         return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = {AwsS3BucketNotExist.class})
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    public ErrorMessage awsS3BucketNotFoundException(AwsS3BucketNotExist ex, HttpServletRequest request){
+        return new ErrorMessage(HttpStatus.NOT_FOUND, Instant.now(), String.format(ex.getMessage()),request.getRequestURI());
+    }
+
+    @ExceptionHandler(value = {UserProfileNotFoundException.class})
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    public ErrorMessage userProfileNotFoundException(UserProfileNotFoundException ex, HttpServletRequest request){
+        return new ErrorMessage(HttpStatus.NOT_FOUND, Instant.now(), String.format(ex.getMessage()),request.getRequestURI());
     }
 
     private Map<String, List<String>> getErrorsMap(List<String> errors) {
