@@ -41,4 +41,8 @@ public class UserProfile {
     @MapsId
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "userProfile", cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<Bookmark> bookmarks;
 }
