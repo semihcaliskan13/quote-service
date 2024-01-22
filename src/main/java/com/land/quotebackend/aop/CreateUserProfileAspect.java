@@ -15,11 +15,9 @@ import org.springframework.stereotype.Component;
 public class CreateUserProfileAspect {
 
     private final UserProfileService _userProfileService;
-    private final UserService _userService;
 
-    public CreateUserProfileAspect(UserProfileService userProfileService, UserService userService) {
+    public CreateUserProfileAspect(UserProfileService userProfileService) {
         _userProfileService = userProfileService;
-        _userService = userService;
     }
 
     @Pointcut("execution(* com.land.quotebackend.service.impl.UserServiceImpl.saveUser(..))")
