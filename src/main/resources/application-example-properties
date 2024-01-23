@@ -19,3 +19,10 @@ cloud.aws.credentials.access-key= <<your_aws_access_key>>
 cloud.aws.credentials.secret-key= <<your_aws_secret_key>>
 cloud.aws.stack.auto=false
 cloud.aws.region.static=<<your_aws_region>>
+
+#swagger config
+springdoc.api-docs.enabled=true
+springdoc.swagger-ui.layout=BaseLayout
+springdoc.swagger-ui.path=/swagger-ui.html
+springdoc.swagger-ui.operations-sorter=method
+springdoc.api-docs.path=/api-docs
