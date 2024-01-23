@@ -28,6 +28,11 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public List<Post> getAllPostsByIds(List<String> ids) {
+        return postRepository.findAllById(ids);
+    }
+
+    @Override
     public Post getPostById(String id) {
         return postRepository.findById(id).orElseThrow(() ->new QuoteNotFoundException(id));
     }

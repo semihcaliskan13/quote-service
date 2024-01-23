@@ -1,5 +1,6 @@
 package com.land.quotebackend.mapper;
 
+import com.land.quotebackend.dto.request.bookmark.BookmarkCreateRequest;
 import com.land.quotebackend.dto.response.bookmark.BookmarkGetAllResponse;
 import com.land.quotebackend.dto.response.bookmark.BookmarkGetByIdResponse;
 import com.land.quotebackend.entity.Bookmark;
@@ -15,4 +16,5 @@ public interface BookmarkMapper {
 
     List<BookmarkGetAllResponse> BOOKMARK_GET_ALL_RESPONSES(List<Bookmark> bookmarks);
     BookmarkGetByIdResponse BOOKMARK_GET_BY_ID_RESPONSE(Bookmark bookmark);
+    Bookmark BOOKMARK_CREATE_REQUEST_TO_BOOKMARK(BookmarkCreateRequest request);
 }
