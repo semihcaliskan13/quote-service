@@ -4,7 +4,6 @@ import com.land.quotebackend.entity.Post;
 import com.land.quotebackend.excepiton.QuoteNotFoundException;
 import com.land.quotebackend.repository.PostRepository;
 import com.land.quotebackend.service.PostService;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;

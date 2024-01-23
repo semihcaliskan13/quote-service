@@ -1,8 +1,6 @@
 package com.land.quotebackend.dto.response.post;
 
-import com.land.quotebackend.dto.response.userprofile.UserProfileGetByIdResponse;
 import com.land.quotebackend.dto.response.userprofile.UserProfileInPostResponse;
-import com.land.quotebackend.entity.UserProfile;
 
 import java.time.Instant;
 
