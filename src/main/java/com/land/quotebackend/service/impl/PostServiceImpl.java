@@ -24,7 +24,8 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<Post> getAllPosts(int pageIndex, int count) {
         Pageable pageable = PageRequest.of(pageIndex,count, Sort.by("createdAt").descending());
-        return postRepository.findAll(pageable).getContent();
+        var datas = postRepository.findAll(pageable).getContent();
+        return datas;
     }
 
     @Override

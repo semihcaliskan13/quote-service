@@ -28,8 +28,8 @@ public class CreateUserProfileAspect {
     @AfterReturning(pointcut = "saveUserMethod()", returning = "returnValue")
     public void createUserProfileAfterUserSaved(Object returnValue){
         if(returnValue instanceof User user){
-            UserProfile userProfile = new UserProfile(null,null,null,null,user,null);
-            _userProfileService.createUserProfile(userProfile);
+            //UserProfile userProfile = new UserProfile(null,null,null,null,user);
+            //_userProfileService.createUserProfile(userProfile);
         }
     }
 }

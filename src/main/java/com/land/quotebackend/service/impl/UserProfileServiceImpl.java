@@ -24,7 +24,8 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     @Override
     public UserProfile getUserProfileById(String id) {
-        return _userProfileRepository.findById(id).orElseThrow(() -> new UserProfileNotFoundException(String.format("User profile not found with id: %s", id)));
+        var userProfile = _userProfileRepository.findById(id).orElseThrow(() -> new UserProfileNotFoundException(String.format("User profile not found with id: %s", id)));
+        return  userProfile;
     }
 
     @Override
