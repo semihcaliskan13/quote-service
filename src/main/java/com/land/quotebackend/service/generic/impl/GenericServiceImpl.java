@@ -3,6 +3,9 @@ package com.land.quotebackend.service.generic.impl;
 import com.land.quotebackend.entity.BaseEntity;
 import com.land.quotebackend.repository.generic.GenericRepository;
 import com.land.quotebackend.service.generic.GenericService;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -18,7 +21,8 @@ public class GenericServiceImpl<T extends BaseEntity> implements GenericService<
     @Override
     @Transactional
     public List<T> getAll(int index, int count) {
-        return repository.findAll();
+        Pageable page = PageRequest.of(index,count, Sort.by("createdAt").descending());
+        return repository.findAll(page).getContent();
     }
 
     @Override
