@@ -7,6 +7,7 @@ import com.land.quotebackend.entity.UserProfile;
 import com.land.quotebackend.mapper.UserProfileMapper;
 import com.land.quotebackend.service.FileService;
 import com.land.quotebackend.service.UserProfileService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -53,7 +54,7 @@ public class UserProfileController {
     }
 
     @PutMapping
-    public void updateUserProfile(@RequestBody UserProfileUpdateRequest request){
+    public void updateUserProfile(@RequestBody @Valid UserProfileUpdateRequest request){
         userProfileService.updateUserProfile(UserProfileMapper.INIT.USER_PROFILE_UPDATE_REQUEST_USER_PROFILE(request));
     }
 
