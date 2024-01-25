@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,6 +50,11 @@ public class UserProfileController {
     public String uploadUserProfilePhoto(@PathVariable String id, @RequestPart UserProfileUpdateRequest request, MultipartFile file) throws IOException {
         UserProfile userProfile =UserProfileMapper.INIT.USER_PROFILE_UPDATE_REQUEST_USER_PROFILE(request);
         return fileService.fileUpload(bucketName,file,userProfile);
+    }
+
+    @PutMapping
+    public void updateUserProfile(@RequestBody UserProfileUpdateRequest request){
+        userProfileService.updateUserProfile(UserProfileMapper.INIT.USER_PROFILE_UPDATE_REQUEST_USER_PROFILE(request));
     }
 
 }
