@@ -39,8 +39,9 @@ public class PostController {
     public List<PostGetAllResponse> getAllPosts(@RequestParam int pageIndex,
                                                 @RequestParam int count,
                                                 @RequestParam @Nullable Instant startDate,
-                                                @RequestParam @Nullable Instant endDate) {
-        return PostMapper.INIT.postsToGetAllResponse(postService.getAllPosts(pageIndex, count, startDate, endDate));
+                                                @RequestParam @Nullable Instant endDate,
+                                                @RequestParam @Nullable String search_query) {
+        return PostMapper.INIT.postsToGetAllResponse(postService.getAllPosts(pageIndex, count, startDate, endDate,search_query));
     }
 
     @GetMapping(value = "{id}")

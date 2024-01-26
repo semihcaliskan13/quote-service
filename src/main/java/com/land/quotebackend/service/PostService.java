@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface PostService {
 
-    List<Post> getAllPosts(int pageIndex, int count, Instant startDate, Instant endDate);
+    List<Post> getAllPosts(int pageIndex, int count, Instant startDate, Instant endDate, String search_query);
     List<Post> getAllPostsByIds(List<String> ids);
     List<Post> getAllPostsByUserProfile(UserProfile userProfile, Integer index, Integer count);
     Post getPostById(String id);

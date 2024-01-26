@@ -4,7 +4,6 @@ import com.land.quotebackend.entity.Post;
 import com.land.quotebackend.entity.UserProfile;
 import com.land.quotebackend.excepiton.QuoteNotFoundException;
 import com.land.quotebackend.repository.PostRepository;
-import com.land.quotebackend.repository.UserRepository;
 import com.land.quotebackend.service.PostService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -24,12 +23,14 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> getAllPosts(int pageIndex, int count, Instant startDate, Instant endDate) {
+    public List<Post> getAllPosts(int pageIndex, int count, Instant startDate, Instant endDate, String search_query) {
         Pageable pageable = PageRequest.of(pageIndex, count, Sort.by("createdAt").descending());
         if (startDate != null && endDate != null) {
             return postRepository.findPostsByCreatedAtBetween(startDate, endDate, pageable).getContent();
+        } else if (search_query != null){
+            return postRepository.findPostsByContentContaining(search_query,pageable).getContent();
         }
-        return postRepository.findAll(pageable).getContent();
+            return postRepository.findAll(pageable).getContent();
     }
 
     @Override
