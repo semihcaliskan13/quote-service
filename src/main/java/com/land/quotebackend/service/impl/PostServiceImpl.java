@@ -1,8 +1,10 @@
 package com.land.quotebackend.service.impl;
 
 import com.land.quotebackend.entity.Post;
+import com.land.quotebackend.entity.UserProfile;
 import com.land.quotebackend.excepiton.QuoteNotFoundException;
 import com.land.quotebackend.repository.PostRepository;
+import com.land.quotebackend.repository.UserRepository;
 import com.land.quotebackend.service.PostService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,7 +24,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> getAllPosts(int pageIndex, int count) {
-        Pageable pageable = PageRequest.of(pageIndex,count, Sort.by("createdAt").descending());
+        Pageable pageable = PageRequest.of(pageIndex, count, Sort.by("createdAt").descending());
         var datas = postRepository.findAll(pageable).getContent();
         return datas;
     }
@@ -33,19 +35,26 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public List<Post> getAllPostsByUserProfile(UserProfile userProfile, Integer index, Integer count) {
+        Pageable pageable = PageRequest.of(index, count, Sort.by("createdAt").descending());
+        return postRepository.findByUserProfile(userProfile, pageable).getContent();
+    }
+
+    @Override
     public Post getPostById(String id) {
-        return postRepository.findById(id).orElseThrow(() ->new QuoteNotFoundException(id));
+        return postRepository.findById(id).orElseThrow(() -> new QuoteNotFoundException(id));
     }
 
     @Override
-    public Post createPost(Post post) {
-        return postRepository.save(post);
+    public void createPost(Post post) {
+        postRepository.save(post);
     }
 
     @Override
-    public Post updatePost(Post post) {
-        if (postRepository.existsById(post.getId())){
-            return postRepository.save(post);
+    public void updatePost(Post post) {
+        if (postRepository.existsById(post.getId())) {
+            postRepository.save(post);
+            return;
         }
         throw new QuoteNotFoundException();
     }
