@@ -1,5 +1,6 @@
 package com.land.quotebackend.service.impl;
 
+import com.land.quotebackend.entity.Bookmark;
 import com.land.quotebackend.entity.UserProfile;
 import com.land.quotebackend.excepiton.UserProfileNotFoundException;
 import com.land.quotebackend.repository.UserProfileRepository;
@@ -24,6 +25,11 @@ public class UserProfileServiceImpl implements UserProfileService {
     public List<UserProfile> getAllUserProfiles(int index, int count) {
         Pageable page = PageRequest.of(index,count,Sort.by("createdAt").descending());
         return _userProfileRepository.findAll();
+    }
+
+    @Override
+    public List<Bookmark> getUsersBookmarks(String id) {
+        return null;
     }
 
     @Override

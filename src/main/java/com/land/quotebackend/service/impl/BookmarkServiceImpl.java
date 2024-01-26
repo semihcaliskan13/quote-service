@@ -1,6 +1,8 @@
 package com.land.quotebackend.service.impl;
 
 import com.land.quotebackend.entity.Bookmark;
+import com.land.quotebackend.entity.UserProfile;
+import com.land.quotebackend.repository.BookmarkRepository;
 import com.land.quotebackend.repository.generic.GenericRepository;
 import com.land.quotebackend.service.BookmarkService;
 import com.land.quotebackend.service.PostService;
@@ -12,9 +14,9 @@ import java.util.List;
 @Service
 public class BookmarkServiceImpl extends GenericServiceImpl<Bookmark> implements BookmarkService {
 
-    private final GenericRepository<Bookmark,String> bookmarkRepository;
+    private final BookmarkRepository bookmarkRepository;
     private final PostService postService;
-    public BookmarkServiceImpl(GenericRepository<Bookmark, String> repository, GenericRepository<Bookmark, String> bookmarkRepository, PostService postService) {
+    public BookmarkServiceImpl(GenericRepository<Bookmark, String> repository, BookmarkRepository bookmarkRepository, PostService postService) {
         super(repository);
         this.bookmarkRepository = bookmarkRepository;
         this.postService = postService;
@@ -26,5 +28,10 @@ public class BookmarkServiceImpl extends GenericServiceImpl<Bookmark> implements
         var posts = postService.getAllPostsByIds(postIds);
         bookmark.getPosts().addAll(posts);
         bookmarkRepository.save(bookmark);
+    }
+
+    @Override
+    public List<Bookmark> getUserProfilesBookmarks(UserProfile userProfile) {
+        return bookmarkRepository.findByUserProfile(userProfile);
     }
 }

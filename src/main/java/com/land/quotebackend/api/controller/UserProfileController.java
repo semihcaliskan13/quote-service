@@ -2,10 +2,13 @@ package com.land.quotebackend.api.controller;
 
 import com.land.quotebackend.dto.queryParams.UserProfileGetByIdParams;
 import com.land.quotebackend.dto.request.userprofile.UserProfileUpdateRequest;
+import com.land.quotebackend.dto.response.bookmark.BookmarkGetAllResponse;
 import com.land.quotebackend.dto.response.userprofile.UserProfileGetAllResponse;
 import com.land.quotebackend.dto.response.userprofile.UserProfileGetByIdResponse;
 import com.land.quotebackend.entity.UserProfile;
+import com.land.quotebackend.mapper.BookmarkMapper;
 import com.land.quotebackend.mapper.UserProfileMapper;
+import com.land.quotebackend.service.BookmarkService;
 import com.land.quotebackend.service.FileService;
 import com.land.quotebackend.service.UserProfileService;
 import jakarta.validation.Valid;
@@ -31,10 +34,12 @@ public class UserProfileController {
     private String bucketName;
 
     private final UserProfileService userProfileService;
+    private final BookmarkService bookmarkService;
     private final FileService fileService;
 
-    public UserProfileController(UserProfileService userProfileService, FileService fileService) {
+    public UserProfileController(UserProfileService userProfileService, BookmarkService bookmarkService, FileService fileService) {
         this.userProfileService = userProfileService;
+        this.bookmarkService = bookmarkService;
         this.fileService = fileService;
     }
 
@@ -45,8 +50,14 @@ public class UserProfileController {
 
     @GetMapping(value = "{id}")
     public UserProfileGetByIdResponse userProfileGetByIdResponse(@PathVariable String id, UserProfileGetByIdParams params){
-
         return UserProfileMapper.INIT.USER_PROFILE_GET_BY_ID_RESPONSE(userProfileService.getUserProfileById(id), params);
+    }
+
+    @GetMapping(value = "{id}/bookmarks")
+    public List<BookmarkGetAllResponse> getUsersBookmarks(@PathVariable String id){
+        var userProfile = new UserProfile();
+        userProfile.setUserId(id);
+        return BookmarkMapper.INIT.BOOKMARK_GET_ALL_RESPONSES(bookmarkService.getUserProfilesBookmarks(userProfile));
     }
 
     @PostMapping(value = "{id}/upload")
