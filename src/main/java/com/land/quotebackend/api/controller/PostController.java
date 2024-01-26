@@ -7,6 +7,7 @@ import com.land.quotebackend.dto.response.post.PostGetByIdResponse;
 import com.land.quotebackend.entity.Post;
 import com.land.quotebackend.mapper.PostMapper;
 import com.land.quotebackend.service.PostService;
+import jakarta.annotation.Nullable;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -33,9 +36,11 @@ public class PostController {
     }
 
     @GetMapping
-    public List<PostGetAllResponse> getAllPosts(@RequestParam int pageIndex, @RequestParam int count) {
-
-        return PostMapper.INIT.postsToGetAllResponse(postService.getAllPosts(pageIndex, count));
+    public List<PostGetAllResponse> getAllPosts(@RequestParam int pageIndex,
+                                                @RequestParam int count,
+                                                @RequestParam @Nullable Instant startDate,
+                                                @RequestParam @Nullable Instant endDate) {
+        return PostMapper.INIT.postsToGetAllResponse(postService.getAllPosts(pageIndex, count, startDate, endDate));
     }
 
     @GetMapping(value = "{id}")

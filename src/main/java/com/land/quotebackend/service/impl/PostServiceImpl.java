@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -23,10 +24,12 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> getAllPosts(int pageIndex, int count) {
+    public List<Post> getAllPosts(int pageIndex, int count, Instant startDate, Instant endDate) {
         Pageable pageable = PageRequest.of(pageIndex, count, Sort.by("createdAt").descending());
-        var datas = postRepository.findAll(pageable).getContent();
-        return datas;
+        if (startDate != null && endDate != null) {
+            return postRepository.findPostsByCreatedAtBetween(startDate, endDate, pageable).getContent();
+        }
+        return postRepository.findAll(pageable).getContent();
     }
 
     @Override
