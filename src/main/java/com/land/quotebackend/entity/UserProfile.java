@@ -15,7 +15,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.Instant;
 import java.util.List;
 
 @AllArgsConstructor
@@ -30,6 +33,10 @@ public class UserProfile {
     private String userId;
     private String description;
     private String imageUrl;
+    @CreationTimestamp
+    private Instant createdAt;
+    @UpdateTimestamp
+    private Instant updatedAt;
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "userProfile", cascade = CascadeType.ALL)
     private List<Post> posts;

@@ -1,5 +1,6 @@
 package com.land.quotebackend.api.controller;
 
+import com.land.quotebackend.dto.queryParams.UserProfileGetByIdParams;
 import com.land.quotebackend.dto.request.userprofile.UserProfileUpdateRequest;
 import com.land.quotebackend.dto.response.userprofile.UserProfileGetAllResponse;
 import com.land.quotebackend.dto.response.userprofile.UserProfileGetByIdResponse;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -39,13 +39,14 @@ public class UserProfileController {
     }
 
     @GetMapping
-    List<UserProfileGetAllResponse> userProfileGetAllResponses(@Valid Params params) {
-        return UserProfileMapper.INIT.USER_PROFILE_GET_ALL_RESPONSES(userProfileService.getAllUserProfiles());
+    List<UserProfileGetAllResponse> userProfileGetAllResponses(int index, int count) {
+        return UserProfileMapper.INIT.USER_PROFILE_GET_ALL_RESPONSES(userProfileService.getAllUserProfiles(index,count));
     }
 
     @GetMapping(value = "{id}")
-    public UserProfileGetByIdResponse userProfileGetByIdResponse(@PathVariable String id, Params2 params2){
-        return UserProfileMapper.INIT.USER_PROFILE_GET_BY_ID_RESPONSE(userProfileService.getUserProfileById(id),params2);
+    public UserProfileGetByIdResponse userProfileGetByIdResponse(@PathVariable String id, UserProfileGetByIdParams params){
+
+        return UserProfileMapper.INIT.USER_PROFILE_GET_BY_ID_RESPONSE(userProfileService.getUserProfileById(id), params);
     }
 
     @PostMapping(value = "{id}/upload")
@@ -58,11 +59,5 @@ public class UserProfileController {
     public void updateUserProfile(@RequestBody @Valid UserProfileUpdateRequest request){
         userProfileService.updateUserProfile(UserProfileMapper.INIT.USER_PROFILE_UPDATE_REQUEST_USER_PROFILE(request));
     }
-
-}
-record Params(
-        int index,
-        int count
-){
 
 }

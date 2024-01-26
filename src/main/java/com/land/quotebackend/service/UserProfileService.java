@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface UserProfileService {
 
-    List<UserProfile> getAllUserProfiles();
+    List<UserProfile> getAllUserProfiles(int index, int count);
     UserProfile getUserProfileById(String id);
     void createUserProfile(UserProfile userProfile);
     void updateUserProfile(UserProfile userProfile);

@@ -4,6 +4,9 @@ import com.land.quotebackend.entity.UserProfile;
 import com.land.quotebackend.excepiton.UserProfileNotFoundException;
 import com.land.quotebackend.repository.UserProfileRepository;
 import com.land.quotebackend.service.UserProfileService;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,14 +21,14 @@ public class UserProfileServiceImpl implements UserProfileService {
     }
 
     @Override
-    public List<UserProfile> getAllUserProfiles() {
+    public List<UserProfile> getAllUserProfiles(int index, int count) {
+        Pageable page = PageRequest.of(index,count,Sort.by("createdAt").descending());
         return _userProfileRepository.findAll();
     }
 
     @Override
     public UserProfile getUserProfileById(String id) {
-        var userProfile = _userProfileRepository.findById(id).orElseThrow(() -> new UserProfileNotFoundException(String.format("User profile not found with id: %s", id)));
-        return  userProfile;
+        return _userProfileRepository.findById(id).orElseThrow(() -> new UserProfileNotFoundException(String.format("User profile not found with id: %s", id)));
     }
 
     @Override
