@@ -1,12 +1,18 @@
 package com.land.quotebackend.mapper;
 
+import com.land.quotebackend.api.controller.Params2;
 import com.land.quotebackend.dto.request.userprofile.UserProfileUpdateRequest;
 import com.land.quotebackend.dto.response.userprofile.UserProfileGetAllResponse;
 import com.land.quotebackend.dto.response.userprofile.UserProfileGetByIdResponse;
-import com.land.quotebackend.dto.response.userprofile.UserProfileInPostResponse;
 import com.land.quotebackend.entity.UserProfile;
+import org.mapstruct.BeforeMapping;
+import org.mapstruct.Context;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
+import org.springframework.beans.BeanUtils;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -15,10 +21,25 @@ public interface UserProfileMapper {
 
     UserProfileMapper INIT = Mappers.getMapper(UserProfileMapper.class);
 
+
     List<UserProfileGetAllResponse> USER_PROFILE_GET_ALL_RESPONSES(List<UserProfile> userProfiles);
-    UserProfileGetByIdResponse USER_PROFILE_GET_BY_ID_RESPONSE(UserProfile userProfile);
+
+    UserProfileGetAllResponse USER_PROFILE_GET_ALL_RESPONSE(UserProfile userProfile);
+
+
+    @Mapping(target = "posts", ignore = true)
+    UserProfileGetByIdResponse USER_PROFILE_GET_BY_ID_RESPONSE(UserProfile userProfile, @Context Params2 params2);
+
+    @BeforeMapping
+    default UserProfileGetByIdResponse map(UserProfile source, @MappingTarget UserProfileGetByIdResponse target, @Context Params2 params2) {
+        UserProfileGetByIdResponse record = null;
+        if (params2.include_bookmarks()) {
+            record = new UserProfileGetByIdResponse(target.userId(), target.description(), target.imageUrl(), PostMapper.INIT.postsToGetAllResponse(source.getPosts()), target.bookmarks());
+        }
+        return record;
+    }
+
 
     UserProfile USER_PROFILE_UPDATE_REQUEST_USER_PROFILE(UserProfileUpdateRequest request);
 
-    UserProfileInPostResponse USER_PROFILE_IN_POST_RESPONSE(UserProfile userProfile);
 }
