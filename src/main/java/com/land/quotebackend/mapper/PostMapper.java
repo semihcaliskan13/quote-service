@@ -4,6 +4,7 @@ import com.land.quotebackend.dto.request.post.PostCreateRequest;
 import com.land.quotebackend.dto.request.post.PostUpdateRequest;
 import com.land.quotebackend.dto.response.post.PostGetAllResponse;
 import com.land.quotebackend.dto.response.post.PostGetByIdResponse;
+import com.land.quotebackend.dto.response.post.PostsInUserProfileGetAllResponse;
 import com.land.quotebackend.entity.Post;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -21,5 +22,6 @@ public interface PostMapper {
     List<PostGetAllResponse> postsToGetAllResponse(List<Post> posts);
     PostGetByIdResponse postToGetByIdResponse(Post post);
 
+    List<PostsInUserProfileGetAllResponse> postToPostInUserGetAllResponse(List<Post> post);
 
 }
