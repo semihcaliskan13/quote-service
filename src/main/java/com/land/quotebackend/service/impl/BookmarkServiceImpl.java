@@ -16,6 +16,7 @@ public class BookmarkServiceImpl extends GenericServiceImpl<Bookmark> implements
 
     private final BookmarkRepository bookmarkRepository;
     private final PostService postService;
+
     public BookmarkServiceImpl(GenericRepository<Bookmark, String> repository, BookmarkRepository bookmarkRepository, PostService postService) {
         super(repository);
         this.bookmarkRepository = bookmarkRepository;
@@ -26,8 +27,11 @@ public class BookmarkServiceImpl extends GenericServiceImpl<Bookmark> implements
     public void addPostToBookmark(List<String> postIds, String bookmarkId) {
         var bookmark = bookmarkRepository.findById(bookmarkId).orElseThrow();
         var posts = postService.getAllPostsByIds(postIds);
-        bookmark.getPosts().addAll(posts);
-        bookmarkRepository.save(bookmark);
+        if (posts != null) {
+            bookmark.getPosts().addAll(posts);
+            bookmarkRepository.save(bookmark);
+        }
+
     }
 
     @Override

@@ -58,6 +58,11 @@ public class UserController {
         userService.saveUser(UserMapper.INIT.userCreateRequestToUser(request));
     }
 
+    @PutMapping(value = "{id}/roles")
+    public void addRolesToUser(@PathVariable String id, @RequestBody List<String> roleIds){
+        userService.addRolesToUser(id,roleIds);
+    }
+
     @PutMapping
     public void updateUser(@RequestBody @Valid UserUpdateRequest request) {
         userService.updateUser(UserMapper.INIT.userUpdateRequestToUser(request));

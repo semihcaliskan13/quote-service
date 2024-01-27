@@ -12,7 +12,6 @@ public record UserGetByIdResponse(
         String email,
         Instant createdAt,
         Instant updatedAt,
-        UserProfileGetAllResponse userProfile,
-        List<RoleGetAllResponse> roles
+        UserProfileGetAllResponse userProfile
 ) {
 }

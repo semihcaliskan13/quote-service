@@ -10,6 +10,8 @@ public interface RoleService {
 
     List<Role> getAllRoles(int index, int count);
     List<Role> getUserRoles(List<User> users, int index, int count);
+
+    List<Role> getRolesByIds(List<String> ids);
     Role getRoleById(String id);
     void createRole(Role role);
     void updateRole(Role role);

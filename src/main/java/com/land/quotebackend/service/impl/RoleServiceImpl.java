@@ -30,6 +30,11 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    public List<Role> getRolesByIds(List<String> ids) {
+        return _roleRepository.findAllById(ids);
+    }
+
+    @Override
     public Role getRoleById(String id) {
         return _roleRepository.findById(id).orElseThrow(() -> new RoleNotFoundException(String.format("Role with id: %s is not found!", id)));
     }
