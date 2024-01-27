@@ -61,6 +61,11 @@ public class RoleController {
         _roleService.updateRole(RoleMapper.INIT.roleUpdateRequestToRole(request));
     }
 
+    @PutMapping(value = "{id}/users")
+    public void addUsersToRole(@PathVariable String id, @RequestBody List<String> userIds){
+        _userService.addUsersToRole(id,userIds);
+    }
+
     @DeleteMapping(value = "{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void deleteRoleById(@PathVariable String id){

@@ -40,6 +40,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> getUsersByIds(List<String> ids) {
+        return userRepository.findAllById(ids);
+    }
+
+    @Override
     public User getUserById(String id) {
         return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
     }
@@ -62,10 +67,21 @@ public class UserServiceImpl implements UserService {
     public void addRolesToUser(String id, List<String> roleIds) {
         var user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
         var roles = roleService.getRolesByIds(roleIds);
-        if (roles!=null){
+        if (roles != null) {
             user.getRoles().addAll(roles);
             userRepository.save(user);
         }
+    }
+
+    @Override
+    public void addUsersToRole(String roleId, List<String> userIds) {
+        var role = roleService.getRoleById(roleId);
+        var users = userRepository.findAllById(userIds);
+        if (users.isEmpty()) {
+            return;
+        }
+        users.forEach(user -> user.getRoles().add(role));
+        userRepository.saveAll(users);
     }
 
     @Override

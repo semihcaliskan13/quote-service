@@ -4,7 +4,10 @@ import com.land.quotebackend.entity.Role;
 import com.land.quotebackend.entity.User;
 import com.land.quotebackend.excepiton.RoleNotFoundException;
 import com.land.quotebackend.repository.RoleRepository;
+import com.land.quotebackend.repository.UserRepository;
 import com.land.quotebackend.service.RoleService;
+import com.land.quotebackend.service.UserService;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +17,7 @@ import java.util.List;
 public class RoleServiceImpl implements RoleService {
 
     private final RoleRepository _roleRepository;
+
 
     public RoleServiceImpl(RoleRepository roleRepository) {
         _roleRepository = roleRepository;
@@ -26,7 +30,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public List<Role> getUserRoles(List<User> users, int index, int count) {
-        return _roleRepository.findAllByUsersIn(users, PageRequest.of(index,count)).getContent();
+        return _roleRepository.findAllByUsersIn(users, PageRequest.of(index, count)).getContent();
     }
 
     @Override
@@ -46,11 +50,11 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public void updateRole(Role role) {
-        if (_roleRepository.existsById(role.getId())){
+        if (_roleRepository.existsById(role.getId())) {
             _roleRepository.save(role);
             return;
         }
-        throw new RoleNotFoundException(String.format("Role with id: %s is not found! CANNOT UPDATE!",role.getId()));
+        throw new RoleNotFoundException(String.format("Role with id: %s is not found! CANNOT UPDATE!", role.getId()));
     }
 
     @Override
