@@ -41,7 +41,7 @@ public class PostController {
                                                 @RequestParam @Nullable Instant startDate,
                                                 @RequestParam @Nullable Instant endDate,
                                                 @RequestParam @Nullable String search_query) {
-        return PostMapper.INIT.postsToGetAllResponse(postService.getAllPosts(pageIndex, count, startDate, endDate,search_query));
+        return PostMapper.INIT.postsToGetAllResponse(postService.getAllPosts(pageIndex, count, startDate, endDate, search_query));
     }
 
     @GetMapping(value = "{id}")
