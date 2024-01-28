@@ -23,4 +23,9 @@ public class AuthController {
     public AuthLoginResponse login(@RequestBody AuthLoginRequest request) {
         return authService.login(request);
     }
+
+    @PostMapping
+    public void sigUp(){
+
+    }
 }
