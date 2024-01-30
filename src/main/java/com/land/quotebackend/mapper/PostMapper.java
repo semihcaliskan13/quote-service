@@ -6,7 +6,12 @@ import com.land.quotebackend.dto.response.post.PostGetAllResponse;
 import com.land.quotebackend.dto.response.post.PostGetByIdResponse;
 import com.land.quotebackend.dto.response.post.PostsInUserProfileGetAllResponse;
 import com.land.quotebackend.entity.Post;
+import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValueCheckStrategy;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -23,5 +28,7 @@ public interface PostMapper {
     PostGetByIdResponse postToGetByIdResponse(Post post);
 
     List<PostsInUserProfileGetAllResponse> postToPostInUserGetAllResponse(List<Post> post);
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
+    void postToPostForPartialUpdate(Post dto, @MappingTarget Post entity);
 
 }

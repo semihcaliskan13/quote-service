@@ -3,6 +3,7 @@ package com.land.quotebackend.service.impl;
 import com.land.quotebackend.entity.Post;
 import com.land.quotebackend.entity.UserProfile;
 import com.land.quotebackend.excepiton.QuoteNotFoundException;
+import com.land.quotebackend.mapper.PostMapper;
 import com.land.quotebackend.repository.PostRepository;
 import com.land.quotebackend.service.PostService;
 import org.springframework.data.domain.PageRequest;
@@ -27,10 +28,10 @@ public class PostServiceImpl implements PostService {
         Pageable pageable = PageRequest.of(pageIndex, count, Sort.by("createdAt").descending());
         if (startDate != null && endDate != null) {
             return postRepository.findPostsByCreatedAtBetween(startDate, endDate, pageable).getContent();
-        } else if (search_query != null){
-            return postRepository.findPostsByContentContaining(search_query,pageable).getContent();
+        } else if (search_query != null) {
+            return postRepository.findPostsByContentContaining(search_query, pageable).getContent();
         }
-            return postRepository.findAll(pageable).getContent();
+        return postRepository.findAll(pageable).getContent();
     }
 
     @Override
@@ -56,11 +57,12 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void updatePost(Post post) {
-        if (postRepository.existsById(post.getId())) {
-            postRepository.save(post);
-            return;
-        }
-        throw new QuoteNotFoundException();
+
+        var postDb = postRepository.findById(post.getId()).orElseThrow(QuoteNotFoundException::new);
+        PostMapper.INIT.postToPostForPartialUpdate(post, postDb);
+        postRepository.save(postDb);
+        return;
+
     }
 
     @Override
